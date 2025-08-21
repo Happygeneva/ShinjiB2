@@ -1,24 +1,17 @@
-import { useState } from "react";
-
 export default function Writing() {
-  const [text, setText] = useState("");
-
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-yellow-50 p-6">
-      <h1 className="text-3xl font-bold mb-6">Writing 練習</h1>
-
-      <p className="text-lg mb-4">
-        テーマに沿ってフランス語で文章を書きましょう。
+    <div style={{ padding: "20px" }}>
+      <h1>✍️ ライティング</h1>
+      <p>
+        次のテーマについて 5〜6 文の短い作文を書いてください。
       </p>
-
+      <blockquote>
+        「最近の旅行について友達に手紙を書く」
+      </blockquote>
       <textarea
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-        className="w-full max-w-xl h-40 p-3 border rounded-lg shadow-md"
-        placeholder="ここにフランス語で作文を書いてください..."
-      />
-
-      <p className="mt-4 font-semibold">文字数: {text.length}</p>
+        placeholder="ここにフランス語で書いてください"
+        style={{ width: "100%", height: "200px", marginTop: "10px" }}
+      ></textarea>
     </div>
   );
 }
