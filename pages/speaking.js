@@ -3,30 +3,27 @@ import { useState } from "react";
 export default function Speaking() {
   const [recording, setRecording] = useState(false);
 
-  const toggleRecording = () => {
-    setRecording(!recording);
+  const startRecording = () => {
+    alert("🎙️ スピーキング練習を開始！（録音機能はブラウザで拡張可能）");
+    setRecording(true);
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-red-50 p-6">
-      <h1 className="text-3xl font-bold mb-6">Speaking 練習</h1>
-
-      <p className="text-lg mb-4">
-        テーマに基づいてフランス語で話してみましょう。
+    <div style={{ padding: "20px" }}>
+      <h1>🗣️ スピーキング</h1>
+      <p>
+        次の質問に答えるように話してください：
       </p>
-
+      <blockquote>
+        「あなたの一日のスケジュールについて説明してください」
+      </blockquote>
       <button
-        onClick={toggleRecording}
-        className="px-6 py-3 rounded-xl bg-red-500 text-white shadow-md"
+        onClick={startRecording}
+        style={{ marginTop: "20px", padding: "10px", fontSize: "16px" }}
       >
-        {recording ? "録音停止" : "録音開始"}
+        🎙️ 録音開始
       </button>
-
-      {recording && (
-        <p className="mt-4 font-semibold text-red-600">
-          🎙️ 録音中です。フランス語で話してください！
-        </p>
-      )}
+      {recording && <p>録音中...（デモ）</p>}
     </div>
   );
 }
