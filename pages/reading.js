@@ -1,15 +1,20 @@
-import Link from "next/link";
-
 export default function Reading() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-green-50 p-6">
-      <h1 className="text-2xl font-bold mb-4">📖 Reading</h1>
-      <p className="mb-6 text-gray-800 max-w-xl text-center">
-        今日のテキスト：<br /><br />
-        « Aujourd'hui, il fait très beau. Beaucoup de gens se promènent
-        dans le parc et profitent du soleil. »
+      <h1 className="text-3xl font-bold mb-6">Reading 練習</h1>
+
+      <p className="text-lg mb-4">
+        B2 レベルの文章を読み、理解力を高めましょう。
       </p>
-      <Link href="/" className="text-blue-600 underline">⬅︎ 戻る</Link>
+
+      <article className="bg-white p-4 rounded-xl shadow-md max-w-xl">
+        <h2 className="font-bold text-xl mb-2">サンプル記事</h2>
+        <p>
+          En France, de plus en plus de jeunes choisissent d’étudier à
+          l’étranger pour améliorer leurs compétences linguistiques et vivre
+          une nouvelle expérience culturelle.
+        </p>
+      </article>
     </div>
   );
 }
