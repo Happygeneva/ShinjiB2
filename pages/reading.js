@@ -1,20 +1,20 @@
 export default function Reading() {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-green-50 p-6">
-      <h1 className="text-3xl font-bold mb-6">Reading 練習</h1>
-
-      <p className="text-lg mb-4">
-        B2 レベルの文章を読み、理解力を高めましょう。
+    <div style={{ padding: "20px" }}>
+      <h1>📖 リーディング</h1>
+      <p>
+        以下の文章を読んで、正しい答えを選んでください。
       </p>
-
-      <article className="bg-white p-4 rounded-xl shadow-md max-w-xl">
-        <h2 className="font-bold text-xl mb-2">サンプル記事</h2>
-        <p>
-          En France, de plus en plus de jeunes choisissent d’étudier à
-          l’étranger pour améliorer leurs compétences linguistiques et vivre
-          une nouvelle expérience culturelle.
-        </p>
-      </article>
+      <blockquote>
+        Marie habite à Paris. Elle prend le métro tous les jours pour aller à l’université.
+      </blockquote>
+      <p>質問: Marie はどこに住んでいますか？</p>
+      <ul>
+        <li>A. Lyon</li>
+        <li>B. Tokyo</li>
+        <li>C. Paris</li>
+        <li>D. Genève</li>
+      </ul>
     </div>
   );
 }
