@@ -1,19 +1,33 @@
+import { useState } from "react";
+
 export default function Listening() {
+  const [answer, setAnswer] = useState("");
+  const [result, setResult] = useState("");
+
+  const checkAnswer = () => {
+    if (answer.toLowerCase().includes("travel")) {
+      setResult("✅ 正解です！");
+    } else {
+      setResult("❌ もう一度聞いてみましょう。");
+    }
+  };
+
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>🎧 リスニング</h1>
-      <p>以下の音声を聞いて、設問に答えてください。</p>
+    <div style={{ padding: 40, fontFamily: "Arial" }}>
+      <h1>🎧 リスニング練習</h1>
       <audio controls>
         <source src="/sample.mp3" type="audio/mpeg" />
-        お使いのブラウザは audio タグに対応していません。
+        音声を再生できません
       </audio>
-      <p>質問: この会話のテーマは何ですか？</p>
-      <ul>
-        <li>A. 旅行</li>
-        <li>B. 食事</li>
-        <li>C. 勉強</li>
-        <li>D. 天気</li>
-      </ul>
+      <p>この音声の内容を一言で答えてください:</p>
+      <input
+        type="text"
+        value={answer}
+        onChange={(e) => setAnswer(e.target.value)}
+        style={{ padding: 5, marginRight: 10 }}
+      />
+      <button onClick={checkAnswer}>答える</button>
+      <p>{result}</p>
     </div>
   );
 }
