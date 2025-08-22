@@ -1,58 +1,40 @@
-// pages/listening.js
 import { useState } from "react";
 
 export default function Listening() {
-  const [answer, setAnswer] = useState("");
-  const [feedback, setFeedback] = useState("");
+  const [currentQ, setCurrentQ] = useState(1);
 
-  const correctAnswer = "パリ"; // 正解の例
+  const questions = [
+    "Q1: Quel est le sujet principal du reportage ?",
+    "Q2: Quelle ville est mentionnée dans l'audio ?",
+    "Q3: Qui est l’intervenant principal ?",
+    // ... Q50まで
+  ];
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (answer.trim() === correctAnswer) {
-      setFeedback("✅ 正解です！よくできました。");
-    } else {
-      setFeedback("❌ 不正解です。もう一度聞いてみましょう。");
+  const handleNext = () => {
+    if (currentQ < questions.length) {
+      setCurrentQ(currentQ + 1);
     }
   };
 
   return (
-    <div style={{ padding: "20px", fontFamily: "sans-serif" }}>
-      <h1>🎧 Listening</h1>
-      <p>音声を聞いて質問に答えてください。</p>
+    <div className="p-8">
+      <h1 className="text-xl font-bold">🎧 Listening</h1>
+      <p className="mb-4">{questions[currentQ - 1]}</p>
 
-      {/* ✅ public フォルダ直下のファイルは /ファイル名 でアクセス */}
-      <audio controls>
-        <source src="/sample.mp3" type="audio/mpeg" />
-        ブラウザが audio タグをサポートしていません。
+      <audio controls key={currentQ}>
+        <source src={`/listening_b2_mp3/listening_Q${currentQ}.mp3`} type="audio/mpeg" />
+        Votre navigateur ne supporte pas l’audio.
       </audio>
 
-      <hr style={{ margin: "20px 0" }} />
-
-      <h2>Q: 音声で言及された都市はどこですか？</h2>
-
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="答えを入力"
-          value={answer}
-          onChange={(e) => setAnswer(e.target.value)}
-          style={{ padding: "8px", fontSize: "16px" }}
-        />
+      <div className="mt-4">
         <button
-          type="submit"
-          style={{
-            marginLeft: "10px",
-            padding: "8px 16px",
-            fontSize: "16px",
-            cursor: "pointer",
-          }}
+          className="bg-blue-500 text-white px-4 py-2 rounded"
+          onClick={handleNext}
+          disabled={currentQ === questions.length}
         >
-          回答
+          Next Question
         </button>
-      </form>
-
-      {feedback && <p style={{ marginTop: "20px" }}>{feedback}</p>}
+      </div>
     </div>
   );
 }
