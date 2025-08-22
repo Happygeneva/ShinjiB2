@@ -2,32 +2,35 @@ import { useState } from "react";
 
 export default function Listening() {
   const [answer, setAnswer] = useState("");
-  const [result, setResult] = useState("");
+  const [result, setResult] = useState(null);
 
   const checkAnswer = () => {
-    if (answer.toLowerCase().includes("travel")) {
-      setResult("✅ 正解です！");
-    } else {
-      setResult("❌ もう一度聞いてみましょう。");
-    }
+    setResult(answer.toLowerCase().includes("paris"));
   };
 
   return (
-    <div style={{ padding: 40, fontFamily: "Arial" }}>
-      <h1>🎧 リスニング練習</h1>
-      <audio controls>
-        <source src="/sample.mp3" type="audio/mpeg" />
-        音声を再生できません
-      </audio>
-      <p>この音声の内容を一言で答えてください:</p>
+    <div style={{ padding: 40 }}>
+      <h1>🎧 Listening</h1>
+      <p>音声を聞いて質問に答えてください。</p>
+      <audio controls src="/sample.mp3" style={{ marginTop: 20 }} />
+
+      <p style={{ marginTop: 20 }}>
+        Q: 音声で言及された都市はどこですか？
+      </p>
       <input
         type="text"
+        placeholder="答えを入力"
         value={answer}
         onChange={(e) => setAnswer(e.target.value)}
-        style={{ padding: 5, marginRight: 10 }}
+        style={{ padding: 8, marginRight: 10 }}
       />
-      <button onClick={checkAnswer}>答える</button>
-      <p>{result}</p>
+      <button onClick={checkAnswer}>確認</button>
+
+      {result !== null && (
+        <p style={{ marginTop: 20 }}>
+          {result ? "✅ 正解！" : "❌ もう一度聞いてみましょう。"}
+        </p>
+      )}
     </div>
   );
 }
