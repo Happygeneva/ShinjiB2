@@ -1,31 +1,32 @@
 import { useState } from "react";
 
 export default function Reading() {
-  const text = "Many people believe that traveling is the best way to learn about the world.";
+  const text = "Marie habite à Lyon. Elle travaille comme ingénieure.";
   const [answer, setAnswer] = useState("");
-  const [result, setResult] = useState("");
+  const [result, setResult] = useState(null);
 
   const checkAnswer = () => {
-    if (answer.toLowerCase().includes("travel")) {
-      setResult("✅ 正解です！");
-    } else {
-      setResult("❌ もう一度読んでみましょう。");
-    }
+    setResult(answer.toLowerCase().includes("lyon"));
   };
 
   return (
-    <div style={{ padding: 40, fontFamily: "Arial" }}>
-      <h1>📖 リーディング練習</h1>
+    <div style={{ padding: 40 }}>
+      <h1>📖 Reading</h1>
       <p>{text}</p>
-      <p>この文章の主題は何ですか？</p>
+      <p>Q: Marie はどこに住んでいますか？</p>
       <input
         type="text"
+        placeholder="答えを入力"
         value={answer}
         onChange={(e) => setAnswer(e.target.value)}
-        style={{ padding: 5, marginRight: 10 }}
+        style={{ padding: 8, marginRight: 10 }}
       />
-      <button onClick={checkAnswer}>答える</button>
-      <p>{result}</p>
+      <button onClick={checkAnswer}>確認</button>
+      {result !== null && (
+        <p style={{ marginTop: 20 }}>
+          {result ? "✅ 正解！" : "❌ 読み直してみましょう。"}
+        </p>
+      )}
     </div>
   );
 }
