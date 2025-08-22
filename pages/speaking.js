@@ -2,28 +2,31 @@ import { useState } from "react";
 
 export default function Speaking() {
   const [recording, setRecording] = useState(false);
+  const [message, setMessage] = useState("");
 
   const startRecording = () => {
-    alert("🎙️ スピーキング練習を開始！（録音機能はブラウザで拡張可能）");
     setRecording(true);
+    setMessage("🎤 録音中... (※ 実際の録音はブラウザAPIを追加で設定する必要あり)");
+  };
+
+  const stopRecording = () => {
+    setRecording(false);
+    setMessage("✅ 録音終了！内容を確認してください。");
   };
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>🗣️ スピーキング</h1>
-      <p>
-        次の質問に答えるように話してください：
-      </p>
-      <blockquote>
-        「あなたの一日のスケジュールについて説明してください」
-      </blockquote>
-      <button
-        onClick={startRecording}
-        style={{ marginTop: "20px", padding: "10px", fontSize: "16px" }}
-      >
-        🎙️ 録音開始
-      </button>
-      {recording && <p>録音中...（デモ）</p>}
+    <div style={{ padding: 40, fontFamily: "Arial" }}>
+      <h1>🎤 スピーキング練習</h1>
+      <p>次のテーマについて1分間話してください:</p>
+      <blockquote>「オンライン学習の利点について」</blockquote>
+      <div style={{ marginTop: 20 }}>
+        {!recording ? (
+          <button onClick={startRecording}>録音開始</button>
+        ) : (
+          <button onClick={stopRecording}>録音終了</button>
+        )}
+      </div>
+      <p>{message}</p>
     </div>
   );
 }
