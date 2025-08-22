@@ -1,32 +1,44 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 export default function Speaking() {
   const [recording, setRecording] = useState(false);
-  const [message, setMessage] = useState("");
+  const [audioURL, setAudioURL] = useState(null);
+  const mediaRecorderRef = useRef(null);
+  const chunks = useRef([]);
 
-  const startRecording = () => {
+  const startRecording = async () => {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    mediaRecorderRef.current = new MediaRecorder(stream);
+    mediaRecorderRef.current.ondataavailable = (e) => chunks.current.push(e.data);
+    mediaRecorderRef.current.onstop = () => {
+      const blob = new Blob(chunks.current, { type: "audio/mp3" });
+      setAudioURL(URL.createObjectURL(blob));
+      chunks.current = [];
+    };
+    mediaRecorderRef.current.start();
     setRecording(true);
-    setMessage("🎤 録音中... (※ 実際の録音はブラウザAPIを追加で設定する必要あり)");
   };
 
   const stopRecording = () => {
+    mediaRecorderRef.current.stop();
     setRecording(false);
-    setMessage("✅ 録音終了！内容を確認してください。");
   };
 
   return (
-    <div style={{ padding: 40, fontFamily: "Arial" }}>
-      <h1>🎤 スピーキング練習</h1>
-      <p>次のテーマについて1分間話してください:</p>
-      <blockquote>「オンライン学習の利点について」</blockquote>
-      <div style={{ marginTop: 20 }}>
-        {!recording ? (
-          <button onClick={startRecording}>録音開始</button>
-        ) : (
-          <button onClick={stopRecording}>録音終了</button>
-        )}
-      </div>
-      <p>{message}</p>
+    <div style={{ padding: 40 }}>
+      <h1>🗣 Speaking</h1>
+      <p>お題: 「あなたの趣味について1分間話してください。」</p>
+      {!recording ? (
+        <button onClick={startRecording}>🎙 録音開始</button>
+      ) : (
+        <button onClick={stopRecording}>⏹ 停止</button>
+      )}
+      {audioURL && (
+        <div style={{ marginTop: 20 }}>
+          <p>録音結果:</p>
+          <audio src={audioURL} controls />
+        </div>
+      )}
     </div>
   );
 }
