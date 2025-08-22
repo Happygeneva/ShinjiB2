@@ -1,17 +1,33 @@
+import { useState } from "react";
+
 export default function Writing() {
+  const [essay, setEssay] = useState("");
+  const [feedback, setFeedback] = useState("");
+
+  const evaluate = () => {
+    if (essay.split(" ").length > 20) {
+      setFeedback("✅ 良い長さです！しっかり書けています。");
+    } else {
+      setFeedback("✍️ もっと文章を長く書いてみましょう。");
+    }
+  };
+
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>✍️ ライティング</h1>
-      <p>
-        次のテーマについて 5〜6 文の短い作文を書いてください。
-      </p>
-      <blockquote>
-        「最近の旅行について友達に手紙を書く」
-      </blockquote>
+    <div style={{ padding: 40, fontFamily: "Arial" }}>
+      <h1>✍️ ライティング練習</h1>
+      <p>以下のテーマで短いエッセイを書いてください:</p>
+      <blockquote>「旅行は人を成長させるか？」</blockquote>
       <textarea
-        placeholder="ここにフランス語で書いてください"
-        style={{ width: "100%", height: "200px", marginTop: "10px" }}
-      ></textarea>
+        value={essay}
+        onChange={(e) => setEssay(e.target.value)}
+        rows={8}
+        cols={60}
+        style={{ padding: 10 }}
+      />
+      <br />
+      <button onClick={evaluate} style={{ marginTop: 10 }}>提出</button>
+      <p>{feedback}</p>
     </div>
   );
 }
+
