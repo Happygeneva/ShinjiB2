@@ -2,15 +2,15 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div style={{ textAlign: "center", padding: "40px" }}>
-      <h1>ShinjiB2 学習アプリ</h1>
-      <p>フランス語 B2 テスト対策 - メニューを選んでください</p>
-      <nav style={{ display: "flex", flexDirection: "column", gap: "10px", marginTop: "20px" }}>
-        <Link href="/listening">🎧 リスニング</Link>
-        <Link href="/reading">📖 リーディング</Link>
-        <Link href="/writing">✍️ ライティング</Link>
-        <Link href="/speaking">🗣️ スピーキング</Link>
-      </nav>
+    <div style={{ padding: 40, fontFamily: "Arial" }}>
+      <h1>Shinji B2 練習アプリ</h1>
+      <p>以下の4技能を練習できます:</p>
+      <ul>
+        <li><Link href="/listening">🎧 リスニング</Link></li>
+        <li><Link href="/reading">📖 リーディング</Link></li>
+        <li><Link href="/writing">✍️ ライティング</Link></li>
+        <li><Link href="/speaking">🎤 スピーキング</Link></li>
+      </ul>
     </div>
   );
 }
