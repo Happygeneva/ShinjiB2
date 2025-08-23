@@ -1,24 +1,22 @@
 from gtts import gTTS
 import os
 
-# 出力フォルダ
+# 質問リスト（例：フランス語 DELF B2 レベル 5問）
+questions = [
+    "Question 1: Pouvez-vous décrire une expérience qui a changé votre point de vue sur un sujet important?",
+    "Question 2: Quel est le rôle des médias dans la société contemporaine?",
+    "Question 3: Faut-il limiter l’utilisation des réseaux sociaux chez les jeunes?",
+    "Question 4: Quels sont les avantages et les inconvénients du télétravail?",
+    "Question 5: Pensez-vous que la mondialisation soit une chance ou une menace?"
+]
+
+# 保存フォルダを作成
 output_dir = "listening_b2_mp3"
 os.makedirs(output_dir, exist_ok=True)
 
-# DELF B2 レベルのリスニング用50問（仮例）
-questions = [
-    "Question 1. Quelle est la capitale de la France?",
-    "Question 2. Dans quel pays se trouve la ville de Genève?",
-    "Question 3. Quel moyen de transport est mentionné dans l’audio?",
-    "Question 4. Quel est le principal sujet de la conférence?",
-    "Question 5. Quelle est la saison décrite dans le dialogue?",
-    # ... 省略: ここにQ50まで追加 ...
-]
-
-# 50問分の mp3 を生成
-for i, text in enumerate(questions, start=1):
-    tts = gTTS(text=text, lang="fr")
-    filename = os.path.join(output_dir, f"q{i:02d}.mp3")
+# 各質問を MP3 に変換
+for i, question in enumerate(questions, start=1):
+    tts = gTTS(text=question, lang="fr")
+    filename = os.path.join(output_dir, f"question_{i}.mp3")
     tts.save(filename)
-    print(f"✅ {filename} を生成しました")
-MP3 ファイルを生成しました！")
+    print(f"[OK] {filename} を生成しました")
