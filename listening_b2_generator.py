@@ -64,4 +64,4 @@ for i, question in enumerate(questions, start=1):
     tts = gTTS(text=question, lang="fr")
     filename = os.path.join(output_dir, f"question_{i}.mp3")
     tts.save(filename)
-    print(f"[OK] {filename} を生成しました")
+    print(f"[OK] {filename} を生成しました!")
