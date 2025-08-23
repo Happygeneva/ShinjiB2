@@ -1,69 +1,64 @@
-cat <<'PY' > listening_b2_generator.py
-# -*- coding: utf-8 -*-
 from gtts import gTTS
-import os
 
-# 50問の質問リスト（DELF B2想定：汎用テーマ）
+# DELF B2 レベル模擬リスニング質問 50問
 questions = [
-    "Question 1: Pouvez-vous décrire une expérience qui a changé votre point de vue sur un sujet important?",
-    "Question 2: Quel est le rôle des médias dans la société contemporaine?",
-    "Question 3: Faut-il limiter l’utilisation des réseaux sociaux chez les jeunes?",
-    "Question 4: Quels sont les avantages et les inconvénients du télétravail?",
-    "Question 5: Pensez-vous que la mondialisation soit une chance ou une menace?",
-    "Question 6: L’école doit-elle enseigner davantage de compétences pratiques?",
-    "Question 7: La protection de l’environnement est-elle compatible avec la croissance économique?",
-    "Question 8: Quelles solutions proposez-vous pour réduire les inégalités sociales?",
-    "Question 9: La publicité influence-t-elle trop nos choix de consommation?",
-    "Question 10: L’art est-il essentiel pour une société équilibrée?",
-    "Question 11: Pensez-vous que la science doit avoir des limites éthiques?",
-    "Question 12: L’éducation en ligne peut-elle remplacer l’école traditionnelle?",
-    "Question 13: La mobilité internationale est-elle une opportunité ou un danger?",
-    "Question 14: Le cinéma peut-il changer notre perception du monde?",
-    "Question 15: La société doit-elle limiter l’usage des voitures individuelles?",
-    "Question 16: Les nouvelles technologies rendent-elles les gens plus isolés?",
-    "Question 17: Le bénévolat est-il valorisé à sa juste valeur?",
-    "Question 18: L’intelligence artificielle représente-t-elle une menace pour l’emploi?",
-    "Question 19: Les traditions doivent-elles évoluer avec le temps?",
-    "Question 20: Le sport professionnel a-t-il trop d’importance aujourd’hui?",
-    "Question 21: Les voyages forment-ils vraiment la jeunesse?",
-    "Question 22: La démocratie est-elle le meilleur système politique?",
-    "Question 23: Le travail manuel est-il encore nécessaire à l’ère numérique?",
-    "Question 24: L’argent fait-il le bonheur?",
-    "Question 25: Les célébrités sont-elles de bons modèles pour la jeunesse?",
-    "Question 26: Le droit à la déconnexion est-il nécessaire?",
-    "Question 27: Faut-il réduire le temps de travail pour mieux vivre?",
-    "Question 28: La liberté d’expression doit-elle être sans limite?",
-    "Question 29: Les grandes villes sont-elles viables à long terme?",
-    "Question 30: Le tourisme de masse est-il durable?",
-    "Question 31: Les réseaux sociaux favorisent-ils la démocratie?",
-    "Question 32: La musique est-elle universelle?",
-    "Question 33: Les jeunes doivent-ils participer davantage à la politique?",
-    "Question 34: Le nucléaire est-il une énergie d’avenir?",
-    "Question 35: Les inégalités entre hommes et femmes sont-elles encore trop présentes?",
-    "Question 36: La presse papier a-t-elle encore un avenir?",
-    "Question 37: Faut-il interdire la publicité pour les produits nocifs?",
-    "Question 38: Le travail à l’étranger est-il une chance pour la carrière?",
-    "Question 39: La compétition est-elle bénéfique ou dangereuse?",
-    "Question 40: La science peut-elle résoudre tous nos problèmes?",
-    "Question 41: Les langues étrangères doivent-elles être obligatoires à l’école?",
-    "Question 42: La mondialisation menace-t-elle les cultures locales?",
-    "Question 43: L’homme doit-il limiter son exploration de l’espace?",
-    "Question 44: Les animaux doivent-ils avoir des droits semblables aux humains?",
-    "Question 45: Les fêtes traditionnelles ont-elles encore un sens aujourd’hui?",
-    "Question 46: L’éducation doit-elle être gratuite pour tous?",
-    "Question 47: Les avancées médicales posent-elles des problèmes éthiques?",
-    "Question 48: Internet rend-il les gens plus intelligents?",
-    "Question 49: Le sport de haut niveau est-il trop commercial?",
-    "Question 50: L’humour a-t-il une fonction sociale importante?"
+    "Question 1. Quel est le principal problème évoqué dans le dialogue ?",
+    "Question 2. Quelle solution est proposée par l’un des interlocuteurs ?",
+    "Question 3. Quelle est l’attitude du journaliste face à ce sujet ?",
+    "Question 4. Quelle raison explique l’augmentation des prix mentionnée ?",
+    "Question 5. Quelle est la réaction du public selon l’intervenant ?",
+    "Question 6. Quel est l’objectif principal de cette campagne ?",
+    "Question 7. Pourquoi l’entreprise a-t-elle changé sa stratégie ?",
+    "Question 8. Que pense la personne interrogée du télétravail ?",
+    "Question 9. Quelles conséquences pour l’environnement sont citées ?",
+    "Question 10. Quel avantage est mis en avant par l’étudiant ?",
+    "Question 11. Quelle critique est formulée à propos du projet ?",
+    "Question 12. Quelle comparaison est faite entre deux pays ?",
+    "Question 13. Quelles difficultés sont rencontrées par les habitants ?",
+    "Question 14. Que recommande l’expert invité ?",
+    "Question 15. Quelle alternative est proposée dans la discussion ?",
+    "Question 16. Quelle est l’importance des réseaux sociaux selon le texte ?",
+    "Question 17. Quelle inquiétude est exprimée par les parents ?",
+    "Question 18. Quelle tendance culturelle est décrite ?",
+    "Question 19. Quel rôle joue l’État dans cette situation ?",
+    "Question 20. Quelles causes de ce phénomène sont mentionnées ?",
+    "Question 21. Quelle est la position de l’orateur sur le bénévolat ?",
+    "Question 22. Quelle innovation technologique est présentée ?",
+    "Question 23. Quels avantages économiques sont évoqués ?",
+    "Question 24. Quelle conséquence pour les jeunes générations ?",
+    "Question 25. Quelle décision politique est critiquée ?",
+    "Question 26. Quelle différence est soulignée entre ville et campagne ?",
+    "Question 27. Quel conseil est donné aux étudiants ?",
+    "Question 28. Quelle est la principale inquiétude concernant la santé ?",
+    "Question 29. Quelles solutions collectives sont suggérées ?",
+    "Question 30. Quelle conclusion tire le présentateur ?",
+    "Question 31. Quelle est l’attitude du locuteur face au changement climatique ?",
+    "Question 32. Quelle mesure européenne est expliquée ?",
+    "Question 33. Quel impact du tourisme est décrit ?",
+    "Question 34. Quelle critique est faite des médias ?",
+    "Question 35. Quelle évolution du marché du travail est évoquée ?",
+    "Question 36. Quel problème rencontrent les jeunes diplômés ?",
+    "Question 37. Quelles valeurs culturelles sont mises en avant ?",
+    "Question 38. Que pense l’intervenant de la mondialisation ?",
+    "Question 39. Quelle différence générationnelle est mentionnée ?",
+    "Question 40. Quel exemple illustre l’argument de l’orateur ?",
+    "Question 41. Quelle mesure éducative est proposée ?",
+    "Question 42. Quelle est la conséquence du développement technologique ?",
+    "Question 43. Quelle initiative locale est décrite ?",
+    "Question 44. Que souligne le témoignage de l’étudiante étrangère ?",
+    "Question 45. Quelle valeur personnelle est défendue par l’intervenant ?",
+    "Question 46. Quelle inquiétude est exprimée face à l’avenir ?",
+    "Question 47. Quelle critique est faite du système de transport ?",
+    "Question 48. Quelle est la réaction des associations ?",
+    "Question 49. Quelle perspective optimiste est présentée ?",
+    "Question 50. Quelle conclusion générale ressort de ce débat ?"
 ]
 
-output_dir = "listening_b2_mp3"
-os.makedirs(output_dir, exist_ok=True)
-
-for i, question in enumerate(questions, start=1):
+# 50問の音声を生成
+for i, question in enumerate(questions, 1):
     tts = gTTS(text=question, lang="fr")
-    filename = os.path.join(output_dir, f"question_{i:02d}.mp3")
+    filename = f"question_{i}.mp3"
     tts.save(filename)
-    # ASCII のみで出力（全角や日本語は出さない）
-    print("[OK]", filename, "generated")
-PY
+    print(f"{filename} を生成しました")
+
+print("✅ 50問のMP3ファイルがすべて完成しました！")
