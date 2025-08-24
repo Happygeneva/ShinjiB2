@@ -57,7 +57,7 @@ questions = [
 # 50問の音声を生成
 for i, question in enumerate(questions, 1):
     tts = gTTS(text=question, lang="fr")
-    filename = f"question_{i}.mp3"
+    filename = f"public/question_{i}.mp3"
     tts.save(filename)
     print(f"{filename} を生成しました")
 
